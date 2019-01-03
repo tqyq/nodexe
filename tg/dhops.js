@@ -12,7 +12,7 @@ const users = {'743620537':'altman', '743620537a':'wxg', '743620537b':'xgc'}
 const bot = new Telegraf(process.env.DHOPS_BOT,{ telegram: { agent: socksAgent }  })
 //const bot = new Telegraf(process.env.DHOPS_BOT)
 bot.on('sticker', ctx => ctx.reply('👍'))
-bot.command('id', ctx => ctx.reply(`fromId=${ctx.from.id}\nfromUsername=${ctx.from.username}\nchatId=${ctx.chat.id}`))
+bot.command('id', ctx => ctx.reply(`fromId=${ctx.from.id}\nfromUsername=${ctx.from.username}`))
 bot.command('ssh', ctx => {
     fromId = ctx.from.id + ''
     user = users[fromId]
@@ -23,7 +23,7 @@ bot.command('ssh', ctx => {
       } else if (stderr) {
         ctx.reply(`stderr:\n${stderr}`)
       } else {
-        ctx.reply(`ssh登录已开放`)
+        ctx.reply(`${user},ssh登录已开放`)
       }
     });
 })
