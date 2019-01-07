@@ -22,7 +22,12 @@ fs.readFile(file, 'utf8', function (err, data) {
     console.log(err);
     data = '[]'
   }
-  data = JSON.parse(data);
+  try {
+    data = JSON.parse(data)
+  } catch (err) {
+    console.log(err);
+    data = '[]'
+  }
   fail = 'sass_data.fail'
   if (!data.msg || data.msg.length != 50) {
     if (fs.existsSync(fail)) {
