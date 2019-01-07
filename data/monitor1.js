@@ -1,6 +1,7 @@
 var fs = require('fs');
 var file = '/data/saas_data_sample.json';
 var request = require('request');
+const { exec } = require('child_process');
 
 function dh_alert(word) {
     var options = {
@@ -35,6 +36,15 @@ fs.readFile(file, 'utf8', function (err, data) {
     } else {
         dh_alert('SAAS data 接口发生故障')
         fs.openSync(fail, 'w');
+        exec(`/root/reset_saas.sh`, (err, stdout, stderr) => {
+              if (err) {
+                console.error(`err:\n${err}`);
+              } else if (stderr) {
+                console.error(`stderr:\n${stderr}`)
+              } else {
+                console.log(`${stdout}`)
+              }
+            });
     }
 
   } else {
