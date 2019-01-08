@@ -17,15 +17,13 @@ bot.use((ctx, next) => {
     user = users[fromId]
     console.log(new Date(), user)
     if (!user) {
-        ctx.reply(`对不起，我不认识你`)
+        ctx.reply(`对不起，我不认识你${fromId}`)
     } else {
         return next()
     }
 })
 
-bot.on('sticker', ctx => ctx.reply('👍'))
-
-bot.command('id', ctx => ctx.reply(`fromId=${ctx.from.id}\nfromUsername=${ctx.from.username}`))
+//bot.command('id', ctx => ctx.reply(`fromId=${ctx.from.id}\nfromUsername=${ctx.from.username}`))
 
 bot.command('ssh', ctx => {
     fromId = ctx.from.id + ''
@@ -41,4 +39,21 @@ bot.command('ssh', ctx => {
       }
     });
 })
+
+bot.command(/h*/, (ctx) => {
+  return ctx.reply('选择功能', Extra.HTML().markup((m) =>
+    m.inlineKeyboard([
+      m.callbackButton('连接数', 'conn'),
+      m.callbackButton('gp状态', 'gpstate')
+    ])))
+})
+
+bot.action('conn', async (ctx) => {
+    ctx.reply(`conn`)
+})
+
+bot.action('gpstate', async (ctx) => {
+    ctx.reply(`gpstate`)
+})
+
 bot.startPolling()
