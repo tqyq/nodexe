@@ -8,7 +8,7 @@ const socksAgent = new SocksAgent({
 });
 const { exec } = require('child_process');
 
-const users = {'743620537':'altman', '743620537a':'wxg', '788120538':'xgc'}
+const users = {'743620537a':'altman', '743620537a':'wxg', '788120538':'xgc'}
 const bot = new Telegraf(process.env.DHOPS_BOT,{ telegram: { agent: socksAgent }  })
 //const bot = new Telegraf(process.env.DHOPS_BOT)
 
