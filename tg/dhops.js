@@ -28,7 +28,7 @@ bot.use((ctx, next) => {
 
 //bot.command('id', ctx => ctx.reply(`fromId=${ctx.from.id}\nfromUsername=${ctx.from.username}`))
 
-bot.command('ssh', ctx => {
+bot.action('ssh', ctx => {
     fromId = ctx.from.id + ''
     user = users[fromId]
     console.log('ssh enable', user)
@@ -43,10 +43,11 @@ bot.command('ssh', ctx => {
     });
 })
 
-bot.command('h', (ctx) => {
+bot.on('text', (ctx) => {
   return ctx.reply('选择功能', Extra.HTML().markup((m) =>
     m.inlineKeyboard(
     [
+      m.callbackButton('开启ssh', 'ssh'),
       m.callbackButton('gp连接数', 'conn'),
       m.callbackButton('gp状态', 'gpstate')
     ])))
