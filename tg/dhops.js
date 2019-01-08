@@ -35,13 +35,6 @@ bot.action('ssh', ctx => {
     user = users[fromId]
     console.log('ssh enable', user)
     exec(`usermod -s /bin/bash ${user}`, (err, stdout, stderr) => {
-//      if (err) {
-//        ctx.reply(`err:\n${err}`)
-//      } else if (stderr) {
-//        ctx.reply(`stderr:\n${stderr}`)
-//      } else {
-//        ctx.reply(`${user},ssh登录已开放`)
-//      }
       ctx.reply(err || stderr || `${user},ssh登录已开放`)
     })
 })
@@ -92,7 +85,8 @@ bot.action('top', async (ctx) => {
 bot.action(/p_(.+)/, async ctx => {
     host = ctx.match[1]
     exec(`ssh ${host} "cat /proc/loadavg"`, (err, stdout, stderr) => {
-        return ctx.reply(host + "\n" + err || stdout || stderr)
+        output = err || stdout || stderr
+        return ctx.reply(`${host}\n${output}`)
     })
 })
 
