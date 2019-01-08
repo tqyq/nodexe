@@ -9,6 +9,7 @@ const socksAgent = new SocksAgent({
 const { exec } = require('child_process');
 const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
+const { Client } = require('pg')
 
 const users = {'743620537':'altman', '743620537a':'wxg', '788120538':'xgc'}
 const bot = new Telegraf(process.env.DHOPS_BOT,{ telegram: { agent: socksAgent }  })
@@ -52,7 +53,12 @@ bot.command('h', (ctx) => {
 })
 
 bot.action('conn', async (ctx) => {
-    ctx.reply(`conn`)
+    client = new Client()
+    client.connect()
+    client.query("SELECT count(*),datname,(CASE WHEN current_query='<IDLE>' THEN 'IDLE' ELSE 'other' END) q FROM pg_stat_activity where procpid <> pg_backend_pid() group by datname,q", [], (err, res) => {
+      ctx.reply(err ? err.stack : res.rows)
+      client.end()
+    })
 })
 
 bot.action('gpstate', async (ctx) => {
