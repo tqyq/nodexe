@@ -90,15 +90,16 @@ bot.action('top', async (ctx) => {
 
 bot.action(/p_(.+)/, ctx => {
     console.log(ctx.match)
-//    exec(`ssh gp01 "cat /proc/loadavg"`, (err, stdout, stderr) => {
-//      if (err) {
-//        ctx.reply(`err:\n${err}`)
-//      } else if (stderr) {
-//        ctx.reply(`stderr:\n${stderr}`)
-//      } else {
-//        ctx.reply(`${stderr}`)
-//      }
-//    })
+    host = ctx.match[1]
+    exec(`ssh ${host} "cat /proc/loadavg"`, (err, stdout, stderr) => {
+      if (err) {
+        ctx.reply(`err:\n${err}`)
+      } else if (stderr) {
+        ctx.reply(`stderr:\n${stderr}`)
+      } else {
+        ctx.reply(`${stderr}`)
+      }
+    })
 })
 
 bot.startPolling()
