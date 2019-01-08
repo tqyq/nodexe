@@ -34,11 +34,11 @@ bot.command('id', ctx => ctx.reply(`fromId=${ctx.from.id}\nfromUsername=${ctx.fr
 bot.command('ssh', ctx => {
     fromId = ctx.from.id + ''
     user = users[fromId]
-    console.log(new Date(), user)
-    if (!user) {
-        ctx.reply(`对不起，我不认识你`);
-        return
-    }
+//    console.log(new Date(), user)
+//    if (!user) {
+//        ctx.reply(`对不起，我不认识你`);
+//        return
+//    }
     exec(`usermod -s /bin/bash ${user}`, (err, stdout, stderr) => {
       if (err) {
         ctx.reply(`err:\n${err}`);
