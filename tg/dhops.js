@@ -48,6 +48,7 @@ bot.on('text', (ctx) => {
     m.inlineKeyboard(
     [
       m.callbackButton('开启ssh', 'ssh'),
+      m.callbackButton('查看top', 'top'),
       m.callbackButton('gp连接数', 'conn'),
       m.callbackButton('gp状态', 'gpstate')
     ])))
@@ -68,6 +69,32 @@ bot.action('gpstate', async (ctx) => {
     client.query("SELECT count(*),status,hostname FROM gp_segment_configuration group by status,hostname order by hostname", [], (err, res) => {
       ctx.reply(err ? err.stack : res.rows)
       client.end()
+    })
+})
+
+bot.action('top', async (ctx) => {
+    return ctx.reply('选择主机', Extra.HTML().markup((m) =>
+        m.inlineKeyboard(
+        [
+          m.callbackButton('gp01', 'gp01'),
+          m.callbackButton('gp02', 'gp02'),
+          m.callbackButton('gp03', 'gp03'),
+          m.callbackButton('gp04', 'gp04'),
+          m.callbackButton('dock001', 'dock001'),
+          m.callbackButton('dock002', 'dock002'),
+          m.callbackButton('dock003', 'dock003')
+        ])))
+})
+
+bot.action('gp01', ctx => {
+    exec(`ssh -t gp01 "top"`, (err, stdout, stderr) => {
+      if (err) {
+        ctx.reply(`err:\n${err}`)
+      } else if (stderr) {
+        ctx.reply(`stderr:\n${stderr}`)
+      } else {
+        ctx.reply(`${stderr}`)
+      }
     })
 })
 
