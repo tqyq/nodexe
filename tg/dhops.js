@@ -30,6 +30,7 @@ bot.command('id', ctx => ctx.reply(`fromId=${ctx.from.id}\nfromUsername=${ctx.fr
 bot.command('ssh', ctx => {
     fromId = ctx.from.id + ''
     user = users[fromId]
+    console.log(new Date(), user)
     if (!ctx.state.auth) {
         return
     }
