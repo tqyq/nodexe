@@ -45,7 +45,6 @@ bot.command('ssh', ctx => {
 bot.command('h', (ctx) => {
   return ctx.reply('选择功能', Extra.HTML().markup((m) =>
     m.inlineKeyboard(
-    [m.callbackButton('开启ssh', 'ssh')],
     [
       m.callbackButton('gp连接数', 'conn'),
       m.callbackButton('gp状态', 'gpstate')
