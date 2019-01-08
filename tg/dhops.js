@@ -28,8 +28,6 @@ bot.use((ctx, next) => {
     }
 })
 
-//bot.command('id', ctx => ctx.reply(`fromId=${ctx.from.id}\nfromUsername=${ctx.from.username}`))
-
 bot.action('ssh', ctx => {
     fromId = ctx.from.id + ''
     user = users[fromId]
