@@ -40,7 +40,7 @@ bot.command('ssh', ctx => {
     });
 })
 
-bot.command(/h*/, (ctx) => {
+bot.command('h', (ctx) => {
   return ctx.reply('选择功能', Extra.HTML().markup((m) =>
     m.inlineKeyboard([
       m.callbackButton('连接数', 'conn'),
