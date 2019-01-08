@@ -22,9 +22,8 @@ bot.use((ctx, next) => {
     if (!user) {
         ctx.reply(`对不起，我不认识你${fromId}`)
     } else {
-        console.log(ctx.message, ',', ctx.match)
         return next(ctx).then(() => {
-            console.log('then', ctx.message, ',', ctx.match)
+//            console.log('then', ctx.message, ',', ctx.match)
         })
     }
 })
@@ -89,8 +88,8 @@ bot.action('top', async (ctx) => {
         ])))
 })
 
-bot.action(/p_.+/, ctx => {
-    console.log(ctx.match[0])
+bot.action(/p_(.+)/, ctx => {
+    console.log(ctx.match)
 //    exec(`ssh gp01 "cat /proc/loadavg"`, (err, stdout, stderr) => {
 //      if (err) {
 //        ctx.reply(`err:\n${err}`)
