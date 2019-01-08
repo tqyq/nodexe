@@ -76,18 +76,19 @@ bot.action('top', async (ctx) => {
     return ctx.reply('选择主机', Extra.HTML().markup((m) =>
         m.inlineKeyboard(
         [
-          m.callbackButton('gp01', 'gp01'),
-          m.callbackButton('gp02', 'gp02'),
-          m.callbackButton('gp03', 'gp03'),
-          m.callbackButton('gp04', 'gp04'),
-          m.callbackButton('dock001', 'dock001'),
-          m.callbackButton('dock002', 'dock002'),
-          m.callbackButton('dock003', 'dock003')
+          m.callbackButton('gp01', 'p_gp01'),
+          m.callbackButton('gp02', 'p_gp02'),
+          m.callbackButton('gp03', 'p_gp03'),
+          m.callbackButton('gp04', 'p_gp04'),
+          m.callbackButton('dock001', 'p_docker001'),
+          m.callbackButton('dock002', 'p_docker002'),
+          m.callbackButton('dock003', 'p_docker003')
         ])))
 })
 
-bot.action('gp01', ctx => {
-    exec(`ssh -tt gp01 "top"`, (err, stdout, stderr) => {
+bot.action(/p_.+/, ctx => {
+    console.log(${ctx.match[0]})
+    exec(`ssh gp01 "cat /proc/loadavg"`, (err, stdout, stderr) => {
       if (err) {
         ctx.reply(`err:\n${err}`)
       } else if (stderr) {
