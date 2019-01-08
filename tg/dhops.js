@@ -89,8 +89,8 @@ bot.action('top', async (ctx) => {
         ])))
 })
 
-//bot.action(/p_.+/, ctx => {
-//    console.log(ctx.match[0])
+bot.action(/p_.+/, ctx => {
+    console.log(ctx.match[0])
 //    exec(`ssh gp01 "cat /proc/loadavg"`, (err, stdout, stderr) => {
 //      if (err) {
 //        ctx.reply(`err:\n${err}`)
@@ -100,6 +100,6 @@ bot.action('top', async (ctx) => {
 //        ctx.reply(`${stderr}`)
 //      }
 //    })
-//})
+})
 
 bot.startPolling()
