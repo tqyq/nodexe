@@ -45,7 +45,7 @@ bot.on('text', (ctx) => {
     [
       m.callbackButton('开启ssh', 'ssh'),
       m.callbackButton('查看top', 'top'),
-      m.callbackButton('gp连接数', 'conn'),
+      m.callbackButton('gp连接', 'conn'),
       m.callbackButton('gp状态', 'gpstate')
     ])))
 })
