@@ -53,6 +53,7 @@ bot.command('h', (ctx) => {
 })
 
 bot.action('conn', async (ctx) => {
+    console.log('process.env.PGUSER', process.env.PGUSER)
     client = new Client()
     client.connect()
     client.query("SELECT count(*),datname,(CASE WHEN current_query='<IDLE>' THEN 'IDLE' ELSE 'other' END) q FROM pg_stat_activity where procpid <> pg_backend_pid() group by datname,q", [], (err, res) => {
