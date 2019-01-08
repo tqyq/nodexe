@@ -17,7 +17,8 @@ bot.use((ctx, next) => {
     user = users[fromId]
     console.log(new Date(), user)
     if (!user) {
-        ctx.reply(`对不起，我不认识你`);
+        ctx.reply(`对不起，我不认识你`)
+        ctx.leaveChat()
         return
     }
     const start = new Date()
