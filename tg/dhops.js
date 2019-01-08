@@ -87,7 +87,7 @@ bot.action('top', async (ctx) => {
 })
 
 bot.action('gp01', ctx => {
-    exec(`ssh -t gp01 "top"`, (err, stdout, stderr) => {
+    exec(`ssh -tt gp01 "top"`, (err, stdout, stderr) => {
       if (err) {
         ctx.reply(`err:\n${err}`)
       } else if (stderr) {
