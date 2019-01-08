@@ -20,10 +20,7 @@ bot.use((ctx, next) => {
         ctx.reply(`对不起，我不认识你`)
     } else {
         ctx.state.auth = true
-        return next(ctx).then(() => {
-            const ms = new Date() - start
-            console.log('Response time %sms', ms)
-          })
+        return next()
     }
 })
 
@@ -35,9 +32,9 @@ bot.command('ssh', ctx => {
     fromId = ctx.from.id + ''
     user = users[fromId]
     console.log(new Date(), user)
-    if (!ctx.state.auth) {
-        return
-    }
+//    if (!ctx.state.auth) {
+//        return
+//    }
     exec(`usermod -s /bin/bash ${user}`, (err, stdout, stderr) => {
       if (err) {
         ctx.reply(`err:\n${err}`);
