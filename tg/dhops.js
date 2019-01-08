@@ -53,7 +53,6 @@ bot.command('h', (ctx) => {
 })
 
 bot.action('conn', async (ctx) => {
-    console.log('process.env.PGUSER', process.env.PGUSER)
     client = new Client()
     client.connect()
     client.query("SELECT count(*),datname,(CASE WHEN current_query='<IDLE>' THEN 'IDLE' ELSE 'other' END) q FROM pg_stat_activity where procpid <> pg_backend_pid() group by datname,q", [], (err, res) => {
@@ -63,7 +62,12 @@ bot.action('conn', async (ctx) => {
 })
 
 bot.action('gpstate', async (ctx) => {
-    ctx.reply(`gpstate`)
+    client = new Client()
+    client.connect()
+    client.query("SELECT count(*),status,hostname FROM gp_segment_configuration group by status,hostname order by hostname", [], (err, res) => {
+      ctx.reply(err ? err.stack : res.rows)
+      client.end()
+    })
 })
 
 bot.startPolling()
