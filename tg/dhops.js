@@ -88,17 +88,18 @@ bot.action('top', async (ctx) => {
         ])))
 })
 
-bot.action(/p_(.+)/, ctx => {
+bot.action(/p_(.+)/, async ctx => {
     host = ctx.match[1]
     console.log(host)
     exec(`ssh ${host} "cat /proc/loadavg"`, (err, stdout, stderr) => {
-      if (err) {
-        ctx.reply(`err:\n${err}`)
-      } else if (stderr) {
-        ctx.reply(`stderr:\n${stderr}`)
-      } else {
-        ctx.reply(`${stderr}`)
-      }
+        return ctx.reply(err || stdout || stderr)
+//      if (err) {
+//        ctx.reply(`err:\n${err}`)
+//      } else if (stderr) {
+//        ctx.reply(`stderr:\n${stderr}`)
+//      } else {
+//        ctx.reply(`${stderr}`)
+//      }
     })
 })
 
