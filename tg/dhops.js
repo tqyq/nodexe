@@ -20,6 +20,10 @@ bot.use((ctx, next) => {
         ctx.reply(`对不起，我不认识你`)
     } else {
         ctx.state.auth = true
+        return next(ctx).then(() => {
+            const ms = new Date() - start
+            console.log('Response time %sms', ms)
+          })
     }
 })
 
