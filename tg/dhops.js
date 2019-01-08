@@ -22,6 +22,7 @@ bot.use((ctx, next) => {
     if (!user) {
         ctx.reply(`对不起，我不认识你${fromId}`)
     } else {
+        console.log(ctx.message, ',', ctx.match)
         return next()
     }
 })
@@ -86,17 +87,17 @@ bot.action('top', async (ctx) => {
         ])))
 })
 
-bot.action(/p_.+/, ctx => {
-    console.log(ctx.match[0])
-    exec(`ssh gp01 "cat /proc/loadavg"`, (err, stdout, stderr) => {
-      if (err) {
-        ctx.reply(`err:\n${err}`)
-      } else if (stderr) {
-        ctx.reply(`stderr:\n${stderr}`)
-      } else {
-        ctx.reply(`${stderr}`)
-      }
-    })
-})
+//bot.action(/p_.+/, ctx => {
+//    console.log(ctx.match[0])
+//    exec(`ssh gp01 "cat /proc/loadavg"`, (err, stdout, stderr) => {
+//      if (err) {
+//        ctx.reply(`err:\n${err}`)
+//      } else if (stderr) {
+//        ctx.reply(`stderr:\n${stderr}`)
+//      } else {
+//        ctx.reply(`${stderr}`)
+//      }
+//    })
+//})
 
 bot.startPolling()
