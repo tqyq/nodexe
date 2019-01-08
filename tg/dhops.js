@@ -23,7 +23,7 @@ bot.use((ctx, next) => {
         ctx.reply(`对不起，我不认识你${fromId}`)
     } else {
         console.log(ctx.message, ',', ctx.match)
-        return next().then(ctx => {
+        return next(ctx).then(() => {
             console.log('then', ctx.message, ',', ctx.match)
         })
     }
