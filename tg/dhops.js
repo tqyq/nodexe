@@ -1,12 +1,12 @@
 const Telegraf = require('telegraf')
-const SocksAgent = require('socks5-https-client/lib/Agent');
+const SocksAgent = require('socks5-https-client/lib/Agent')
 const socksAgent = new SocksAgent({
   socksHost: process.env.SOCKS_HOST,
   socksPort: process.env.SOCKS_PORT,
 //  socksUsername: config.proxy.login,
 //  socksPassword: config.proxy.psswd,
-});
-const { exec } = require('child_process');
+})
+const { exec } = require('child_process')
 const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 const { Client } = require('pg')
@@ -34,13 +34,13 @@ bot.action('ssh', ctx => {
     console.log('ssh enable', user)
     exec(`usermod -s /bin/bash ${user}`, (err, stdout, stderr) => {
       if (err) {
-        ctx.reply(`err:\n${err}`);
+        ctx.reply(`err:\n${err}`)
       } else if (stderr) {
         ctx.reply(`stderr:\n${stderr}`)
       } else {
         ctx.reply(`${user},ssh登录已开放`)
       }
-    });
+    })
 })
 
 bot.on('text', (ctx) => {
