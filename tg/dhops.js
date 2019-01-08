@@ -72,13 +72,13 @@ bot.action('top', async (ctx) => {
     return ctx.reply('选择主机', Extra.HTML().markup((m) =>
         m.inlineKeyboard(
         [
-          m.callbackButton('gp01', 'p_gp01'),
-          m.callbackButton('gp02', 'p_gp02'),
-          m.callbackButton('gp03', 'p_gp03'),
-          m.callbackButton('gp04', 'p_gp04'),
-          m.callbackButton('dock001', 'p_docker001'),
-          m.callbackButton('dock002', 'p_docker002'),
-          m.callbackButton('dock003', 'p_docker003')
+          m.callbackButton('g1', 'p_gp01'),
+          m.callbackButton('g2', 'p_gp02'),
+          m.callbackButton('g3', 'p_gp03'),
+          m.callbackButton('g4', 'p_gp04'),
+          m.callbackButton('d1', 'p_docker001'),
+          m.callbackButton('d2', 'p_docker002'),
+          m.callbackButton('d3', 'p_docker003')
         ])))
 })
 
