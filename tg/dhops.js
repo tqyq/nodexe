@@ -85,16 +85,18 @@ bot.action('test', async (ctx) => {
     return ctx.reply('选择', Extra.HTML().markup((m) =>
         m.keyboard(
         [
-          m.callbackButton('t1', '1'),
-          m.callbackButton('t2', '2'),
-          m.callbackButton('t3', '3'),
-          m.callbackButton('t4', '4'),
-          m.callbackButton('t5', '5'),
-          m.callbackButton('t6', '6'),
-          m.callbackButton('t6', '6'),
-          m.callbackButton('t6', '6'),
-          m.callbackButton('t7', '7')
-        ])))
+          m.callbackButton('t1', 'p_gp01'),
+          m.callbackButton('t2', 'p_gp02'),
+          m.callbackButton('t3', 'p_gp03'),
+          m.callbackButton('t4', 'p_gp04'),
+          m.callbackButton('t5', 'p_gp01'),
+          m.callbackButton('t6', 'p_gp01'),
+          m.callbackButton('t6', 'p_gp01'),
+          m.callbackButton('t6', 'p_gp01'),
+          m.callbackButton('t7', 'p_gp01')
+        ], {
+                wrap: (btn, index, currentRow) => currentRow.length >= (index + 1) / 2
+              })))
 })
 
 bot.action(/p_(.+)/, async ctx => {
