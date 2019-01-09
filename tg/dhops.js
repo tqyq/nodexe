@@ -95,7 +95,7 @@ bot.action('test', async (ctx) => {
           m.callbackButton('t6', 'p_gp01'),
           m.callbackButton('t7', 'p_gp01')
         ], {
-                wrap: (btn, index, currentRow) => currentRow.length >= (index + 1) / 2
+                wrap: (btn, index, currentRow) => currentRow.length >= 2
               })))
 })
 
