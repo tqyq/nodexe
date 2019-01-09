@@ -44,7 +44,6 @@ bot.on('text', (ctx) => {
       m.callbackButton('开启ssh', 'ssh'),
       m.callbackButton('查负载', 'top'),
       m.callbackButton('gp连接', 'conn'),
-      m.callbackButton('test', 'test'),
       m.callbackButton('gp状态', 'gpstate')
     ])))
 })
@@ -71,34 +70,15 @@ bot.action('top', async (ctx) => {
     return ctx.reply('选择主机', Extra.HTML().markup((m) =>
         m.inlineKeyboard(
         [
-          m.callbackButton('g1', 'p_gp01'),
-          m.callbackButton('g2', 'p_gp02'),
-          m.callbackButton('g3', 'p_gp03'),
-          m.callbackButton('g4', 'p_gp04'),
-          m.callbackButton('d1', 'p_docker001'),
-          m.callbackButton('d2', 'p_docker002'),
-          m.callbackButton('d3', 'p_docker003')
-        ], {
-                         wrap: (btn, index, currentRow) => currentRow.length >= 4
-                       })))
-})
-
-bot.action('test', async (ctx) => {
-    return ctx.reply('选择', Extra.HTML().markup((m) =>
-        m.keyboard(
-        [
-          m.callbackButton('t1', 'p_gp01'),
-          m.callbackButton('t2', 'p_gp02'),
-          m.callbackButton('t3', 'p_gp03'),
-          m.callbackButton('t4', 'p_gp04'),
-          m.callbackButton('t5', 'p_gp01'),
-          m.callbackButton('t6', 'p_gp01'),
-          m.callbackButton('t6', 'p_gp01'),
-          m.callbackButton('t6', 'p_gp01'),
-          m.callbackButton('t7', 'p_gp01')
-        ], {
-                wrap: (btn, index, currentRow) => currentRow.length >= 4
-              })))
+          m.callbackButton('gp1', 'p_gp01'),
+          m.callbackButton('gp2', 'p_gp02'),
+          m.callbackButton('gp3', 'p_gp03'),
+          m.callbackButton('gp4', 'p_gp04'),
+          m.callbackButton('dock1', 'p_docker001'),
+          m.callbackButton('dock2', 'p_docker002'),
+          m.callbackButton('dock3', 'p_docker003')
+        ],
+        { wrap: (btn, index, currentRow) => currentRow.length >= 4 })))
 })
 
 bot.action(/p_(.+)/, async ctx => {
