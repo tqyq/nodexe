@@ -74,9 +74,13 @@ bot.action('top', async (ctx) => {
           m.callbackButton('gp2', 'p_gp02'),
           m.callbackButton('gp3', 'p_gp03'),
           m.callbackButton('gp4', 'p_gp04'),
+          m.callbackButton('saas', 'p_saas'),
           m.callbackButton('dock1', 'p_docker001'),
           m.callbackButton('dock2', 'p_docker002'),
-          m.callbackButton('dock3', 'p_docker003')
+          m.callbackButton('dock3', 'p_docker003'),
+          m.callbackButton('vt1', 'p_vt001'),
+          m.callbackButton('vt2', 'p_vt002'),
+          m.callbackButton('vt3', 'p_vt003')
         ],
         { wrap: (btn, index, currentRow) => currentRow.length >= 4 })))
 })
