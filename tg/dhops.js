@@ -42,8 +42,9 @@ bot.on('text', (ctx) => {
     m.inlineKeyboard(
     [
       m.callbackButton('开启ssh', 'ssh'),
-      m.callbackButton('查看top', 'top'),
+      m.callbackButton('查负载', 'top'),
       m.callbackButton('gp连接', 'conn'),
+      m.callbackButton('test', 'test'),
       m.callbackButton('gp状态', 'gpstate')
     ])))
 })
@@ -77,6 +78,22 @@ bot.action('top', async (ctx) => {
           m.callbackButton('d1', 'p_docker001'),
           m.callbackButton('d2', 'p_docker002'),
           m.callbackButton('d3', 'p_docker003')
+        ])))
+})
+
+bot.action('test', async (ctx) => {
+    return ctx.reply('选择', Extra.HTML().markup((m) =>
+        m.keyboard(
+        [
+          m.callbackButton('t1', '1'),
+          m.callbackButton('t2', '2'),
+          m.callbackButton('t3', '3'),
+          m.callbackButton('t4', '4'),
+          m.callbackButton('t5', '5'),
+          m.callbackButton('t6', '6'),
+          m.callbackButton('t6', '6'),
+          m.callbackButton('t6', '6'),
+          m.callbackButton('t7', '7')
         ])))
 })
 
