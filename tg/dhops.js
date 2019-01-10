@@ -52,6 +52,20 @@ bot.action('conn', async (ctx) => {
     client = new Client()
     client.connect()
     client.query("SELECT count(*),datname,(CASE WHEN current_query='<IDLE>' THEN 'IDLE' ELSE 'other' END) q FROM pg_stat_activity where procpid <> pg_backend_pid() group by datname,q", [], (err, res) => {
+      ctx.reply(err ? err.stack : res.rows,
+      Extra.HTML().markup((m) =>
+        m.inlineKeyboard(
+        [
+          m.callbackButton('查看current_query', 'current_query')
+        ])))
+      client.end()
+    })
+})
+
+bot.action('current_query', async (ctx) => {
+    client = new Client()
+    client.connect()
+    client.query("SELECT datname,current_query q FROM pg_stat_activity where procpid <> pg_backend_pid() and current_query != '<IDLE>'", [], (err, res) => {
       ctx.reply(err ? err.stack : res.rows)
       client.end()
     })
