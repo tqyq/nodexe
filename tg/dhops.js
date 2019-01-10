@@ -33,7 +33,7 @@ bot.action('ssh', ctx => {
     user = users[fromId]
     console.log('ssh enable', user)
     exec(`usermod -s /bin/bash ${user}`, (err, stdout, stderr) => {
-      ctx.reply(err || stderr || `${user},ssh登录已开放`)
+        ctx.reply(err || stderr || `${user},ssh登录已开放`)
     })
 })
 
@@ -41,10 +41,10 @@ bot.on('text', (ctx) => {
   return ctx.reply('选择功能', Extra.HTML().markup((m) =>
     m.inlineKeyboard(
     [
-      m.callbackButton('开启ssh', 'ssh'),
-      m.callbackButton('查负载', 'top'),
-      m.callbackButton('gp连接', 'conn'),
-      m.callbackButton('gp状态', 'gpstate')
+        m.callbackButton('开启ssh', 'ssh'),
+        m.callbackButton('查负载', 'top'),
+        m.callbackButton('gp连接', 'conn'),
+        m.callbackButton('gp状态', 'gpstate')
     ])))
 })
 
@@ -56,7 +56,7 @@ bot.action('conn', async (ctx) => {
       Extra.HTML().markup((m) =>
         m.inlineKeyboard(
         [
-          m.callbackButton('查看current_query', 'current_query')
+            m.callbackButton('查看current_query', 'current_query')
         ])))
       client.end()
     })
@@ -66,8 +66,8 @@ bot.action('current_query', async (ctx) => {
     client = new Client()
     client.connect()
     client.query("SELECT datname,current_query q FROM pg_stat_activity where procpid <> pg_backend_pid() and current_query != '<IDLE>'", [], (err, res) => {
-      ctx.reply(err ? err.stack : res.rows)
-      client.end()
+        ctx.reply(err ? err.stack : res.rows)
+        client.end()
     })
 })
 
@@ -75,8 +75,8 @@ bot.action('gpstate', async (ctx) => {
     client = new Client()
     client.connect()
     client.query("SELECT count(*),status,hostname FROM gp_segment_configuration group by status,hostname order by hostname", [], (err, res) => {
-      ctx.reply(err ? err.stack : res.rows)
-      client.end()
+        ctx.reply(err ? err.stack : res.rows)
+        client.end()
     })
 })
 
@@ -84,17 +84,17 @@ bot.action('top', async (ctx) => {
     return ctx.reply('选择主机', Extra.HTML().markup((m) =>
         m.inlineKeyboard(
         [
-          m.callbackButton('gp1', 'p_gp01'),
-          m.callbackButton('gp2', 'p_gp02'),
-          m.callbackButton('gp3', 'p_gp03'),
-          m.callbackButton('gp4', 'p_gp04'),
-          m.callbackButton('saas', 'p_saas'),
-          m.callbackButton('dock1', 'p_docker001'),
-          m.callbackButton('dock2', 'p_docker002'),
-          m.callbackButton('dock3', 'p_docker003'),
-          m.callbackButton('vt1', 'p_vt001'),
-          m.callbackButton('vt2', 'p_vt002'),
-          m.callbackButton('vt3', 'p_vt003')
+            m.callbackButton('gp1', 'p_gp01'),
+            m.callbackButton('gp2', 'p_gp02'),
+            m.callbackButton('gp3', 'p_gp03'),
+            m.callbackButton('gp4', 'p_gp04'),
+            m.callbackButton('saas', 'p_saas'),
+            m.callbackButton('dock1', 'p_docker001'),
+            m.callbackButton('dock2', 'p_docker002'),
+            m.callbackButton('dock3', 'p_docker003'),
+            m.callbackButton('vt1', 'p_vt001'),
+            m.callbackButton('vt2', 'p_vt002'),
+            m.callbackButton('vt3', 'p_vt003')
         ],
         { wrap: (btn, index, currentRow) => currentRow.length >= 4 })))
 })
