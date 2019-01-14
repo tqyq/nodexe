@@ -14,4 +14,6 @@ bot.help(ctx => ctx.reply('发我 a sticker'))
 bot.on('sticker', ctx => ctx.reply('👍'))
 bot.hears('hi', ctx => ctx.reply('你好 火鸡'))
 bot.command('id', ctx => ctx.reply(`fromId=${ctx.from.id}\nfromUsername=${ctx.from.username}\nchatId=${ctx.chat.id}`))
+//bot.telegram.sendMessage(ctx.update.callback_query.from.id, 'hi')
+
 bot.startPolling()
