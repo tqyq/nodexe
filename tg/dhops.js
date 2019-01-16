@@ -14,6 +14,7 @@ const { Client } = require('pg')
 const users = {'743620537':'altman', '694383035':'wxg', '788120538':'xgc'}
 const bot = new Telegraf(process.env.DHOPS_BOT,{ telegram: { agent: socksAgent }  })
 //const bot = new Telegraf(process.env.DHOPS_BOT)
+const alert = ['❗', '❕']
 
 bot.use((ctx, next) => {
     fromId = ctx.from.id + ''
@@ -90,7 +91,13 @@ bot.action('top', async (ctx) => {
             const obj={}
             for (i in res.rows) {
                 row = res.rows[i]
-                obj[row['host']] = 'p_' + row['host']
+                key = row.host
+                if (row.min5 > 10) {
+                    key = alert[0]+key
+                } else if (row.min5 > 1) {
+                    key = alert[1]+key
+                }
+                obj[key] = 'p_' + row.host
             }
             const buttons = Object.keys(obj).map(key => Markup.callbackButton(key, obj[key]))
             ctx.reply('选择主机', Extra.HTML().markup((m) => m.inlineKeyboard(buttons, {columns: 4})))
