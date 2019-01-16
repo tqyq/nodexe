@@ -89,7 +89,7 @@ bot.action('top', async (ctx) => {
         } else {
             const obj={}
             for (row in res.rows) {
-                obj[row.host] = 'p_' + row.host
+                obj[row['host']] = 'p_' + row['host']
             }
             const buttons = Object.keys(obj).map(key => Markup.callbackButton(key, obj[key]))
             ctx.reply('选择主机', Extra.HTML().markup((m) => m.inlineKeyboard(buttons, {columns: 4})))
