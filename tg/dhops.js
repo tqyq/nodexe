@@ -87,14 +87,14 @@ bot.action('top', async (ctx) => {
         if (err) {
             ctx.reply(err.stack)
         } else {
-            return ctx.reply('选择主机', Extra.HTML().markup((m) =>
-            m.inlineKeyboard((res)=>{
-                keyboards = []
-                console.log(res.rows)
-                for (row in res.rows) {
-                    console.log('row',row)
-                    keyboards.append(m.callbackButton('gp1', 'p_gp01'))
-                }
+            return ctx.reply('选择主机', Extra.HTML().markup((res,m) =>
+            m.inlineKeyboard(()=>{
+                keyboards = [m.callbackButton('gp1', 'p_gp01')]
+                console.log('rows',res.rows)
+//                for (row in res.rows) {
+//                    console.log('row',row)
+//                    keyboards.append(m.callbackButton('gp1', 'p_gp01'))
+//                }
                 return keyboards
             },
             { wrap: (btn, index, currentRow) => currentRow.length >= 4 })))
