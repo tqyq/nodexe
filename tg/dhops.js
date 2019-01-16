@@ -87,11 +87,11 @@ bot.action('top', async (ctx) => {
         if (err) {
             ctx.reply(err.stack)
         } else {
-            console.log("rows",rows)
+            console.log("rows",res.rows)
             ctx.reply('选择主机', Extra.HTML().markup((m) =>
             m.inlineKeyboard(()=>{
                 keyboards = []
-                for (row in rows) {
+                for (row in res.rows) {
                     console.log('row',row)
                     keyboards.append(m.callbackButton('gp1', 'p_gp01'))
                 }
