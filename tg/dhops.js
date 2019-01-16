@@ -104,23 +104,6 @@ bot.action('top', async (ctx) => {
         }
         client.end()
     })
-//    return ctx.reply('选择主机', Extra.HTML().markup((m) =>
-//        m.inlineKeyboard(
-//        [
-//            m.callbackButton('gp1', 'p_gp01'),
-//            m.callbackButton('gp2', 'p_gp02'),
-//            m.callbackButton('gp3', 'p_gp03'),
-//            m.callbackButton('gp4', 'p_gp04'),
-//            m.callbackButton('dock1', 'p_docker001'),
-//            m.callbackButton('dock2', 'p_docker002'),
-//            m.callbackButton('dock3', 'p_docker003'),
-//            m.callbackButton('dock5', 'p_docker005'),
-//            m.callbackButton('saas', 'p_saas'),
-//            m.callbackButton('vt1', 'p_vt001'),
-//            m.callbackButton('vt2', 'p_vt002'),
-//            m.callbackButton('vt3', 'p_vt003')
-//        ],
-//        { wrap: (btn, index, currentRow) => currentRow.length >= 4 })))
 })
 
 bot.action(/p_(.+)/, async ctx => {
