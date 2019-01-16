@@ -88,9 +88,8 @@ bot.action('top', async (ctx) => {
             ctx.reply(err.stack)
         } else {
             const obj={}
-            console.log('rows=', res.rows)
-            for (row in res.rows) {
-                console.log('row=', row)
+            for (i in res.rows) {
+                row = res.rows[i]
                 obj[row['host']] = 'p_' + row['host']
             }
             const buttons = Object.keys(obj).map(key => Markup.callbackButton(key, obj[key]))
