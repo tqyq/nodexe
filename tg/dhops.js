@@ -87,8 +87,7 @@ bot.action('top', async (ctx) => {
         if (err) {
             ctx.reply(err.stack)
         } else {
-            console.log("rows",res.rows)
-            ctx.reply('选择主机', Extra.HTML().markup((m) =>
+            return ctx.reply('选择主机', Extra.HTML().markup((m) =>
             m.inlineKeyboard(()=>{
                 keyboards = []
                 for (row in res.rows) {
