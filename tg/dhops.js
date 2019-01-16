@@ -88,7 +88,7 @@ bot.action('top', async (ctx) => {
             ctx.reply(err.stack)
         } else {
             const obj={"coca":"1" , "7up":"2" , "fanta":"3",  "water":"4", "7up":"2" , "fanta":"3",  "water":"4"}
-            const buttons = Object.keys(obj).map(key => Markup.callbackButton(key, price: ${obj[key]}))
+            const buttons = Object.keys(obj).map(key => Markup.callbackButton(key, obj[key]))
             ctx.reply('选择主机', Extra.HTML().markup((m) => m.inlineKeyboard(buttons, {columns: 2})))
 //            ctx.reply('选择主机', Extra.HTML().markup((res,m) =>
 //            m.inlineKeyboard(()=>{
