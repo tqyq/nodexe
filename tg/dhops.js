@@ -1,3 +1,4 @@
+process.env.TZ = 'Asia/Shanghai'
 const Telegraf = require('telegraf')
 const SocksAgent = require('socks5-https-client/lib/Agent')
 const socksAgent = new SocksAgent({
