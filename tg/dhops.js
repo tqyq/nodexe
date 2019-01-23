@@ -20,7 +20,7 @@ const alert = ['❗', '❕']
 bot.use((ctx, next) => {
     fromId = ctx.from.id + ''
     user = users[fromId]
-    console.log(new Date().toLocaleTimeString(), user)
+    console.log(new Date().toLocaleString(), user)
     if (!user) {
         ctx.reply(`对不起，我不认识你${fromId}`)
     } else {
