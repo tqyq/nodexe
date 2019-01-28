@@ -30,8 +30,8 @@ bot.hears('test', ctx => {
 })
 
 
-new CronJob('* * * * * *', function() {
-  console.log('You will see this message every second')
-}, null, true, 'Asia/Shanghai')
+//new CronJob('* * * * * *', function() {
+//  console.log('You will see this message every second')
+//}, null, true, 'Asia/Shanghai')
 
 bot.startPolling()
