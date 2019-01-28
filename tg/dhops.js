@@ -123,8 +123,11 @@ new CronJob('*/10 * * * * *', function() {
         if (!err) {
             for (i in res.rows) {
                 row = res.rows[i]
-                if (row.count > 50) {
+                if (row.count > 99) {
                     console.log(`${row.datname} exceed ${row.count}`)
+                    client.query("SELECT pg_terminate_backend(procpid) FROM pg_stat_activity WHERE current_query = '<IDLE>' AND query_start < current_timestamp - interval '30 sec'", (err, res) => {
+                        console.log(res)
+                    })
                 } else {
                     console.log(`${row.datname}=${row.count}`)
                 }
