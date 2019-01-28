@@ -9,6 +9,7 @@ const socksAgent = new SocksAgent({
 const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 const bot = new Telegraf(process.env.TEST_BOT,{ telegram: { agent: socksAgent }  })
+var {CronJob} = require('cron')
 emoji = ['❗', '❕']
 //const bot = new Telegraf(process.env.BOT_TOKEN)
 bot.start(ctx => ctx.reply('欢迎!'))
@@ -27,5 +28,10 @@ bot.hears('test', ctx => {
         m.callbackButton('gp状态', 'gpstate')
     ])))
 })
+
+
+new CronJob('* * * * * *', function() {
+  console.log('You will see this message every second')
+}, null, true, 'Asia/Shanghai')
 
 bot.startPolling()
