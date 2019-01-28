@@ -11,7 +11,7 @@ const { exec } = require('child_process')
 const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 const { Client } = require('pg')
-
+const {CronJob} = require('cron')
 const users = {'743620537':'altman', '694383035':'wxg', '788120538':'xgc'}
 const bot = new Telegraf(process.env.DHOPS_BOT,{ telegram: { agent: socksAgent }  })
 //const bot = new Telegraf(process.env.DHOPS_BOT)
@@ -114,5 +114,26 @@ bot.action(/p_(.+)/, async ctx => {
         return ctx.reply(`${host}\n${output}`)
     })
 })
+
+new CronJob('*/10 * * * * *', function() {
+    client = new Client()
+    client.connect()
+    client.query("SELECT count(*),datname FROM pg_stat_activity where procpid <> pg_backend_pid() and current_query='<IDLE>' group by datname", [], (err, res) => {
+        err ? err.stack : res.rows
+        if (!err) {
+            for (i in res.rows) {
+                row = res.rows[i]
+                if (row.count > 50) {
+                    console.log(`${row.datname} exceed ${row.count}`)
+                } else {
+                    console.log(`${row.datname}=${row.count}`)
+                }
+            }
+        } else {
+            console.err(err.stack)
+        }
+        client.end()
+    })
+}, null, true, 'Asia/Shanghai')
 
 bot.startPolling()
