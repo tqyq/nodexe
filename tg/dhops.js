@@ -119,7 +119,6 @@ new CronJob('*/10 * * * * *', function() {
     client = new Client()
     client.connect()
     client.query("SELECT count(*),datname FROM pg_stat_activity where procpid <> pg_backend_pid() and current_query='<IDLE>' group by datname", [], (err, res) => {
-        err ? err.stack : res.rows
         if (!err) {
             for (i in res.rows) {
                 row = res.rows[i]
