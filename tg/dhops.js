@@ -16,7 +16,7 @@ const users = {'743620537':'altman', '694383035':'wxg', '788120538':'xgc'}
 const bot = new Telegraf(process.env.DHOPS_BOT,{ telegram: { agent: socksAgent }  })
 //const bot = new Telegraf(process.env.DHOPS_BOT)
 const alert = ['❗', '❕']
-
+var conn_count = 0
 bot.use((ctx, next) => {
     fromId = ctx.from.id + ''
     user = users[fromId]
@@ -40,9 +40,9 @@ bot.action('ssh', ctx => {
 })
 
 bot.on('text', (ctx) => {
-    let line1 = {'开启ssh':'ssh', '查负载':'top', 'gp连接':'conn', 'gp状态':'gpstate'}
+    let line1 = {'开启ssh':'ssh', '查负载':'top', `gp连接${conn_count}`:'conn', 'gp状态':'gpstate'}
     const buttons = Object.keys(line1).map(key => Markup.callbackButton(key, line1[key]))
-    return ctx.reply('选择功能', Extra.HTML().markup((m) =>
+    ctx.reply('选择功能', Extra.HTML().markup((m) =>
         m.inlineKeyboard(buttons)))
 })
 
@@ -116,7 +116,9 @@ new CronJob('*/10 * * * * *', function() {
     client.connect()
     client.query("SELECT count(*),datname FROM pg_stat_activity where procpid <> pg_backend_pid() and current_query='<IDLE>' group by datname", [], (err, res) => {
         if (!err) {
+            conn_count = 0
             for (i in res.rows) {
+                conn_count += row.count
                 row = res.rows[i]
                 if (row.count > 99) {
                     console.log(`${row.datname} exceed ${row.count}`)
