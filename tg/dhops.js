@@ -101,7 +101,7 @@ bot.action('top', async (ctx) => {
                 obj[key] = 'p_' + row.host
             }
             const buttons = Object.keys(obj).map(key => Markup.callbackButton(key, obj[key]))
-            ctx.reply('选择主机', Extra.HTML().markup((m) => m.inlineKeyboard(buttons, {columns: 4})))
+            ctx.reply('选择主机', Extra.HTML().markup((m) => m.inlineKeyboard([buttons,buttons], {columns: 4})))
         }
         client.end()
     })
