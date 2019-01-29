@@ -40,11 +40,7 @@ bot.action('ssh', ctx => {
 })
 
 bot.on('text', (ctx) => {
-    line1 = {'开启ssh':'ssh', '查负载':'top','gp连接':'conn','gp状态':'gpstate'}
-//    line1['开启ssh'] = 'ssh'
-//    line1['查负载'] = 'top'
-//    line1['gp连接'] = 'conn'
-//    line1['gp状态'] = 'gpstate'
+    let line1 = {'开启ssh':'ssh', '查负载':'top', 'gp连接':'conn', 'gp状态':'gpstate'}
     const buttons = Object.keys(line1).map(key => Markup.callbackButton(key, line1[key]))
     return ctx.reply('选择功能', Extra.HTML().markup((m) =>
         m.inlineKeyboard(buttons)))
