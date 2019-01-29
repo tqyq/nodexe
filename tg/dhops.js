@@ -40,14 +40,14 @@ bot.action('ssh', ctx => {
 })
 
 bot.on('text', (ctx) => {
-  return ctx.reply('选择功能', Extra.HTML().markup((m) =>
-    m.inlineKeyboard(
-    [
-        m.callbackButton('开启ssh', 'ssh'),
-        m.callbackButton('查负载', 'top'),
-        m.callbackButton('gp连接', 'conn'),
-        m.callbackButton('gp状态', 'gpstate')
-    ])))
+    line1 = {}
+    line1['开启ssh'] = 'ssh'
+    line1['查负载'] = 'top'
+    line1['gp连接'] = 'conn'
+    line1['gp状态'] = 'gpstate'
+    const buttons = Object.keys(obj).map(key => Markup.callbackButton(key, obj[key]))
+    return ctx.reply('选择功能', Extra.HTML().markup((m) =>
+        m.inlineKeyboard(buttons)))
 })
 
 bot.action('conn', async (ctx) => {
@@ -101,7 +101,7 @@ bot.action('top', async (ctx) => {
                 obj[key] = 'p_' + row.host
             }
             const buttons = Object.keys(obj).map(key => Markup.callbackButton(key, obj[key]))
-            ctx.reply('选择主机', Extra.HTML().markup((m) => m.inlineKeyboard([buttons,buttons], {columns: 4})))
+            ctx.reply('选择主机', Extra.HTML().markup((m) => m.inlineKeyboard(buttons, {columns: 4})))
         }
         client.end()
     })
