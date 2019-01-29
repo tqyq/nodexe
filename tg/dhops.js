@@ -44,7 +44,7 @@ bot.on('text', (ctx) => {
     line1[`gp连接${conn_count}`] = 'conn'
     const buttons = Object.keys(line1).map(key => Markup.callbackButton(key, line1[key]))
     ctx.reply('选择功能', Extra.HTML().markup((m) =>
-        m.inlineKeyboard(buttons)))
+        m.inlineKeyboard(buttons, {columns: 2})))
 })
 
 bot.action('conn', async (ctx) => {
