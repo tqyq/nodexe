@@ -40,8 +40,9 @@ bot.action('ssh', ctx => {
 })
 
 bot.on('text', (ctx) => {
-    let line1 = {'开启ssh':'ssh', '查负载':'top', 'gp状态':'gpstate'}
+    let line1 = {'开启ssh':'ssh', '查负载':'top'}
     line1[`gp连接${conn_count}`] = 'conn'
+    line1[gp_down_count > 0 ? alert[0]+'gp异常' : 'gp正常'] = 'gpstate'
     const buttons = Object.keys(line1).map(key => Markup.callbackButton(key, line1[key]))
     ctx.reply('选择功能', Extra.HTML().markup((m) =>
         m.inlineKeyboard(buttons, {columns: 2})))
@@ -115,6 +116,19 @@ bot.action(/p_(.+)/, async ctx => {
 new CronJob('*/10 * * * * *', function() {
     client = new Client()
     client.connect()
+    client.query("SELECT count(*),status,hostname FROM gp_segment_configuration group by status,hostname order by hostname", [], (err, res) => {
+        if (!err) {
+            gp_down_count = 0
+            for (i in res.rows) {
+                row = res.rows[i]
+                if (row.status != 'u') {
+                    gp_down_count += parseInt(row.count)
+                }
+            }
+        } else {
+            console.err(err.stack)
+        }
+    })
     client.query("SELECT count(*),datname FROM pg_stat_activity where procpid <> pg_backend_pid() and current_query='<IDLE>' group by datname", [], (err, res) => {
         if (!err) {
             conn_count = 0
