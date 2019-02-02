@@ -17,6 +17,7 @@ const bot = new Telegraf(process.env.DHOPS_BOT,{ telegram: { agent: socksAgent }
 //const bot = new Telegraf(process.env.DHOPS_BOT)
 const alert = ['❗', '❕']
 var conn_count = 0
+var gp_down_count = 0
 bot.use((ctx, next) => {
     fromId = ctx.from.id + ''
     user = users[fromId]
