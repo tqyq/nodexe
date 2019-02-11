@@ -130,20 +130,12 @@ new CronJob('*/10 * * * * *', function() {
             console.err(err.stack)
         }
     })
-    client.query("SELECT count(*),datname FROM pg_stat_activity where procpid <> pg_backend_pid() and current_query='<IDLE>' group by datname", [], (err, res) => {
+    client.query("SELECT count(*),datname FROM pg_stat_activity where current_query='<IDLE>' group by datname", [], (err, res) => {
         if (!err) {
             conn_count = 0
             for (i in res.rows) {
                 row = res.rows[i]
                 conn_count += parseInt(row.count)
-                if (row.count > 99) {
-                    console.log(`${row.datname} exceed ${row.count}`)
-                    client.query("SELECT pg_terminate_backend(procpid) FROM pg_stat_activity WHERE current_query = '<IDLE>' AND query_start < current_timestamp - interval '30 sec'", (err, res) => {
-                        console.log(res)
-                    })
-                } else {
-                    console.log(`${row.datname}=${row.count}`)
-                }
             }
         } else {
             console.err(err.stack)
