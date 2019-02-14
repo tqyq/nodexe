@@ -99,29 +99,6 @@ bot.action('top', async (ctx) => {
     }
     const buttons = Object.keys(obj).map(key => Markup.callbackButton(key, obj[key]))
     ctx.reply('选择主机', Extra.HTML().markup((m) => m.inlineKeyboard(buttons, {columns: 3})))
-
-//    client = new Client()
-//    client.connect()
-//    client.query("select * from loadavg order by host", [], (err, res) => {
-//        if (err) {
-//            ctx.reply(err.stack)
-//        } else {
-//            const obj={}
-//            for (i in res.rows) {
-//                row = res.rows[i]
-//                key = row.host
-//                if (row.min5 > 10) {
-//                    key = alert[0]+key
-//                } else if (row.min5 > 1) {
-//                    key = alert[1]+key
-//                }
-//                obj[key] = 'p_' + row.host
-//            }
-//            const buttons = Object.keys(obj).map(key => Markup.callbackButton(key, obj[key]))
-//            ctx.reply('选择主机', Extra.HTML().markup((m) => m.inlineKeyboard(buttons, {columns: 3})))
-//        }
-//        client.end()
-//    })
 })
 
 bot.action(/p_(.+)/, async ctx => {
