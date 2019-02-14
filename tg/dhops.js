@@ -85,6 +85,7 @@ bot.action('gpstate', async (ctx) => {
 
 bot.action('top', async (ctx) => {
     const rows = await csv2json().fromFile('/tmp/loadavg.csv')
+    const obj={}
     for (i in rows) {
         row = rows[i]
         key = row.host
