@@ -16,6 +16,8 @@ const users = {'743620537':'altman', '694383035':'wxg', '788120538':'xgc'}
 const bot = new Telegraf(process.env.DHOPS_BOT,{ telegram: { agent: socksAgent }  })
 //const bot = new Telegraf(process.env.DHOPS_BOT)
 const alert = ['❗', '❕']
+const csv2json = require('csvtojson')
+
 var conn_count = 0
 var gp_down_count = 0
 bot.use((ctx, next) => {
@@ -82,28 +84,43 @@ bot.action('gpstate', async (ctx) => {
 })
 
 bot.action('top', async (ctx) => {
-    client = new Client()
-    client.connect()
-    client.query("select * from loadavg order by host", [], (err, res) => {
-        if (err) {
-            ctx.reply(err.stack)
-        } else {
-            const obj={}
-            for (i in res.rows) {
-                row = res.rows[i]
-                key = row.host
-                if (row.min5 > 10) {
-                    key = alert[0]+key
-                } else if (row.min5 > 1) {
-                    key = alert[1]+key
-                }
-                obj[key] = 'p_' + row.host
-            }
-            const buttons = Object.keys(obj).map(key => Markup.callbackButton(key, obj[key]))
-            ctx.reply('选择主机', Extra.HTML().markup((m) => m.inlineKeyboard(buttons, {columns: 3})))
+    const rows = await csv2json().fromFile('/tmp/loadavg.csv')
+    for (i in rows) {
+        row = rows[i]
+        key = row.host
+        min5 = parseFloat(row.min5)
+        if (min5 > 10) {
+            key = alert[0]+key
+        } else if (min5 > 1) {
+            key = alert[1]+key
         }
-        client.end()
-    })
+        obj[key] = 'p_' + row.host
+    }
+    const buttons = Object.keys(obj).map(key => Markup.callbackButton(key, obj[key]))
+    ctx.reply('选择主机', Extra.HTML().markup((m) => m.inlineKeyboard(buttons, {columns: 3})))
+
+//    client = new Client()
+//    client.connect()
+//    client.query("select * from loadavg order by host", [], (err, res) => {
+//        if (err) {
+//            ctx.reply(err.stack)
+//        } else {
+//            const obj={}
+//            for (i in res.rows) {
+//                row = res.rows[i]
+//                key = row.host
+//                if (row.min5 > 10) {
+//                    key = alert[0]+key
+//                } else if (row.min5 > 1) {
+//                    key = alert[1]+key
+//                }
+//                obj[key] = 'p_' + row.host
+//            }
+//            const buttons = Object.keys(obj).map(key => Markup.callbackButton(key, obj[key]))
+//            ctx.reply('选择主机', Extra.HTML().markup((m) => m.inlineKeyboard(buttons, {columns: 3})))
+//        }
+//        client.end()
+//    })
 })
 
 bot.action(/p_(.+)/, async ctx => {
