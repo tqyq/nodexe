@@ -4,7 +4,7 @@ const { exec } = require('child_process')
 
 app.get('/', function (req, res) {
     exec(`/root/git_dh_wiki.sh`, (err, stdout, stderr) => {
-        res.send(err || stderr || `done`)
+        res.send(err || stderr || stdout)
     })
 })
 
